@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:groceryapp/onboard_screen.dart';
 import 'package:groceryapp/register_screen.dart';
+import 'package:groceryapp/welcomescreen.dart';
 import '';
 void main(){
   runApp(MyApp());
@@ -31,13 +33,21 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(
           seconds: 3
-        ), () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterScreen()));});
+        ), () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));});
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Image.asset('images/home-page-161.png')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('images/home-page-161.png'),
+            Text("Grocery Store",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)
+          ],
+        ),
+      ),
     );
   }
 }
