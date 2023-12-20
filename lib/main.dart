@@ -1,11 +1,19 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:groceryapp/onboard_screen.dart';
 import 'package:groceryapp/register_screen.dart';
 import 'package:groceryapp/welcomescreen.dart';
 import '';
-void main(){
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options:
+  FirebaseOptions(
+      apiKey: "AIzaSyBc7-atxFxKop6yvJh7w24Xa2TNcUz4qds",
+      appId: "1:812472335604:android:02bc110703c266b7b632a1",
+      messagingSenderId: "812472335604",
+      projectId: "grocery-app-a0c2f"));
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -14,6 +22,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.cyan
+      ),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

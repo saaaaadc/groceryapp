@@ -1,7 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:groceryapp/onboard_screen.dart';
+
+bool _validPhoneNumber = false;
+showBottomSheet(context){
+  showModalBottomSheet(context: context,
+      builder: (context)=> StatefulBuilder(
+          builder: (context,StateSetter myState){
+            return Container(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Text("Login",style: TextStyle(fontSize: 25),),
+                    Text('Enter your phone number',style: TextStyle(fontSize: 12),),
+                    SizedBox(height: 30,),
+                    TextField(
+                      decoration: InputDecoration(
+                        prefixText: "+91",
+                        labelText: "Ten Digits",
+                      ),
+                      autofocus: true,
+                      keyboardType: TextInputType.phone,
+                      maxLength: 10,
+                      onChanged: (value){
+                        if(value.length==10){
+                          myState((){
+                            _validPhoneNumber = true;
+                          });
+                        }else{
+                          myState((){
+                            _validPhoneNumber = false;
+                          });
+                        }
+
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AbsorbPointer(
+                            absorbing: _validPhoneNumber ? false:true,
+                            child: MaterialButton(
+                              color: _validPhoneNumber ? Theme.of(context).primaryColor : Colors.grey,
+                                onPressed: (){},
+                                child: Text(_validPhoneNumber? 'Continue' : 'Enter phone number',style: TextStyle(fontSize: 12,),)),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+
+
+
+          },
+          ),
+      );
+
+}
+
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +94,21 @@ class WelcomeScreen extends StatelessWidget {
                     text: TextSpan(
                       text: 'Already a Customer ?',
                       style: TextStyle(color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: 'Login',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                        ),
-                      ],
                     ),
                   ),
+                  Center(
+                    child: TextButton(
+                        onPressed: (){
+                          showBottomSheet(context);
+                        },
+                        child:Text("LOGIN")),
+                  )
+
 
                 ],
               ),
 
-            ],
+          ],
         ),
       ),
     );
